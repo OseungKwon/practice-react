@@ -1,0 +1,12 @@
+.comments{
+  margin: 2rem;
+}
+
+.comments{
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  grid-gap: 2rem;
+}
+.comments>div{
+  border: 1px solid #333;
+}
