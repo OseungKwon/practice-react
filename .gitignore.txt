@@ -1,1 +1,5 @@
+# REDUX 연습 폴더
 REDUX 연습/node_modules/
+
+# REDUX 이해하기 폴더
+REDUX 이해하기/node_modules/
