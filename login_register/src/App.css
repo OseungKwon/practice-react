@@ -1,0 +1,40 @@
+form{
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  width: 20rem;
+  margin-top: 20vh;
+}
+form>*{
+  padding: 1rem;
+  margin: 1rem;
+}
+.Nav{
+  display: flex;
+  height: 10vh;
+  justify-content: space-around;
+  font-size: 2rem;
+  color: white;
+  background-color: black;
+}
+.Nav>*{
+    padding: 2rem;
+    text-decoration: none;
+}
+.Nav>.nav-sub>*{
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+a{
+  text-decoration: none;
+  color: white;
+}
+.Home{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  padding: 2rem;
+}
+
