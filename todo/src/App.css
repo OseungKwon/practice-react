@@ -1,0 +1,28 @@
+.App{
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+h1{
+  padding: 2rem;
+}
+.Form{
+  display: flex;
+  flex-direction: row;
+}
+.todo-button{
+  width: 3rem;
+}
+.select{
+  margin-left: 3rem;
+}
+.todo-input{
+  width: 15rem;
+  height: 2rem;
+}
+.filter-todo{
+  height: 2.4rem;
+}
