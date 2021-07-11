@@ -10,7 +10,7 @@ export const getTodosAsync = createAsyncThunk(
         }
     }
 );
-
+// 여기서 문제 발생했었음 completed: 값 설정안되는 문제
 export const addTodoAsync = createAsyncThunk(
     'todos/addTodoAsync',
     async (payload) => {
@@ -66,7 +66,7 @@ export const todoSlice = createSlice({
     reducers: {
         addTodo: (state, action) => {
             const todo = {
-                key: nextTodoId++,
+                id: nextTodoId++,
                 title: action.payload.title,
                 completed: false,
             };
