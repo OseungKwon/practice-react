@@ -1,19 +1,27 @@
 {
-  "name": "todo",
+  "name": "memo-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@reduxjs/toolkit": "^1.6.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "nanoid": "^3.1.23",
+    "axios": "^0.21.1",
+    "immutable": "^4.0.0-rc.14",
+    "open-color": "^1.8.0",
     "react": "^17.0.2",
+    "react-click-outside": "^3.0.1",
     "react-dom": "^17.0.2",
+    "react-icons": "^4.2.0",
+    "react-immutable-proptypes": "^2.2.0",
     "react-redux": "^7.2.4",
     "react-scripts": "4.0.3",
+    "react-textarea-autosize": "^8.3.3",
+    "react-transition-group": "^4.4.2",
     "redux": "^4.1.0",
-    "redux-toolkit": "^1.1.2",
+    "redux-actions": "^2.6.5",
+    "redux-pender": "^2.0.12",
+    "styled-components": "^5.3.0",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
@@ -40,5 +48,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:3001"
+  "devDependencies": {
+    "cross-env": "^7.0.3"
+  },
+  "proxy": "http://localhost:3001/"
 }
