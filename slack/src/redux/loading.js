@@ -1,32 +1,36 @@
-const START_LOADING = 'loading/START_LOADING'
-const FINISH_LOADING = 'loading/FINISH_LOADING'
+import { createAction, handleActions } from 'redux-actions';
 
-export const startLoading = (requestType) => ({
-    type: START_LOADING,
-    requestType
-})
+const START_LOADING = 'loading/START_LOADING';
+const FINISH_LOADING = 'loading/FINISH_LOADING';
 
-export const finishLoading = (requestType) => ({
-    type: FINISH_LOADING,
-    requestType
-})
+/*
+ 요청을 위한 액션 타입을 payload로 설정합니다 (예: "sample/GET_POST")
+*/
+
+export const startLoading = createAction(
+    START_LOADING,
+    requestType => requestType
+);
+
+export const finishLoading = createAction(
+    FINISH_LOADING,
+    requestType => requestType
+);
 
 const initialState = {};
 
-const loading = (state = initialState, action) => {
-    switch (action.type) {
-        case START_LOADING:
-            return {
-                ...state,
-                [action.payload]: true
-            }
-        case FINISH_LOADING:
-            return {
-                ...state,
-                [action.payload]: false
-            }
-        default:
-            return state;
-    }
-}
+const loading = handleActions(
+    {
+        [START_LOADING]: (state, action) => ({
+            ...state,
+            [action.payload]: true
+        }),
+        [FINISH_LOADING]: (state, action) => ({
+            ...state,
+            [action.payload]: false
+        })
+    },
+    initialState
+);
+
 export default loading;

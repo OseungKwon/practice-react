@@ -1,11 +1,13 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Button = () => {
-    return (
-        <div>
 
-        </div>
-    )
-}
+const Button = props => {
+    return props.to ? (
+        <Link {...props} cyan={props.cyan ? 1 : 0} />
+    ) : (
+        <Link {...props} />
+    );
+};
 
-export default Button
+export default Button;

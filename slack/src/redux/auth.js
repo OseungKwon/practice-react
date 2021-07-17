@@ -1,37 +1,42 @@
+
+import { createAction, handleActions } from 'redux-actions';
 import produce from 'immer';
-import createRequestSaga from '../lib/createRequestSaga';
 import { takeLatest } from 'redux-saga/effects';
+import createRequestSaga, {
+    createRequestActionTypes
+} from '../lib/createRequestSaga';
 import * as authAPI from '../lib/api/auth';
+
 const CHANGE_FIELD = 'auth/CHANGE_FIELD';
-const INITIALIZE_FORM = 'auth/INITIALIZE_FORM'
+const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
 
-const REGISTER = 'auth/REGISTER';
-const REGISTER_SUCCESS = 'auth/REGISTER_SUCCESS';
-const REGISTER_FAILURE = 'auth/REGISTER_FAILURE';
+const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] = createRequestActionTypes(
+    'auth/REGISTER'
+);
 
-const LOGIN = 'auth/LOGIN';
-const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
-const LOGIN_FAILUREN = 'auth/LOGIN_LOGIN_FAILURE';
+const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestActionTypes(
+    'auth/LOGIN'
+);
 
+export const changeField = createAction(
+    CHANGE_FIELD,
+    ({ form, key, value }) => ({
+        form, // register , login
+        key, // username, password, passwordConfirm
+        value // 실제 바꾸려는 값
+    })
+);
+export const initializeForm = createAction(INITIALIZE_FORM, form => form); // register / login
+export const register = createAction(REGISTER, ({ username, password }) => ({
+    username,
+    password
+}));
+export const login = createAction(LOGIN, ({ username, password }) => ({
+    username,
+    password
+}));
 
-export const changeField = ({ form, key, value }) => ({
-    type: CHANGE_FIELD,
-    form, key, value
-})
-export const initializeForm = (form) => ({
-    type: INITIALIZE_FORM,
-    form
-})
-
-export const register = ({ username, password }) => ({
-    type: REGISTER,
-    username, password
-})
-export const login = ({ username, password }) => ({
-    type: LOGIN,
-    username, password
-})
-
+// saga 생성
 const registerSaga = createRequestSaga(REGISTER, authAPI.register);
 const loginSaga = createRequestSaga(LOGIN, authAPI.login);
 export function* authSaga() {
@@ -51,45 +56,43 @@ const initialState = {
     },
     auth: null,
     authError: null
-}
+};
 
-const auth = (state = initialState, action) => {
-    switch (action.type) {
-        case CHANGE_FIELD:
-            return produce(state, draft => {
-                draft[action.form][action.key] = action.value;
-            })
+const auth = handleActions(
+    {
+        [CHANGE_FIELD]: (state, { payload: { form, key, value } }) =>
+            produce(state, draft => {
+                draft[form][key] = value; // 예: state.register.username을 바꾼다
+            }),
+        [INITIALIZE_FORM]: (state, { payload: form }) => ({
+            ...state,
+            [form]: initialState[form],
+            authError: null // 폼 전환 시 회원 인증 에러 초기화
+        }),
+        // 회원가입 성공
+        [REGISTER_SUCCESS]: (state, { payload: auth }) => ({
+            ...state,
+            authError: null,
+            auth
+        }),
+        // 회원가입 실패
+        [REGISTER_FAILURE]: (state, { payload: error }) => ({
+            ...state,
+            authError: error
+        }),
+        // 로그인 성공
+        [LOGIN_SUCCESS]: (state, { payload: auth }) => ({
+            ...state,
+            authError: null,
+            auth
+        }),
+        // 로그인 실패
+        [LOGIN_FAILURE]: (state, { payload: error }) => ({
+            ...state,
+            authError: error
+        })
+    },
+    initialState
+);
 
-        case INITIALIZE_FORM:
-            return {
-                ...state,
-                [action.form]: initialState[action.form],
-                authError: null,
-            };
-        case REGISTER_SUCCESS:
-            return {
-                ...state,
-                authError: null,
-                auth
-            }
-        case REGISTER_FAILURE:
-            return {
-                ...state,
-                authError: action.error,
-            }
-        case LOGIN_SUCCESS:
-            return {
-                ...state,
-                authError: null,
-                auth
-            }
-        case LOGIN_FAILUREN:
-            return {
-                ...state,
-                authError: action.error,
-            }
-        default:
-            return state
-    }
-}
 export default auth;

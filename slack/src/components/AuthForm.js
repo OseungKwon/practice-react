@@ -5,7 +5,7 @@ const textMap = {
     register: '회원가입'
 }
 
-const AuthForm = ({ type, form, onChange, onSubmit }) => {
+const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
     const text = textMap[type];
     return (
         <div>
@@ -19,6 +19,7 @@ const AuthForm = ({ type, form, onChange, onSubmit }) => {
                     <input autoComplete="new-password" name="passwordConfirm" placeholder="비밀번호 확인" type="password"
                         onChange={onChange} value={form.passwordConfirm} />
                 )}
+                {error && <div>{error}</div>}
                 <button>{text}</button>
             </form>
             <h6>
