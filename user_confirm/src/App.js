@@ -9,13 +9,13 @@ import LogoutButton from './components/LogoutButton';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 
-function App() {
+const App = () => {
   const [user, setUser] = useState(null);
   const authenticated = user != null;
   const login = ({ email, password }) => setUser(signIn({ email, password }));
   const logout = () => setUser(null);
   const [signUp, setSIgnUp] = useState(null);
-  const log = ({ sign }) => setSIgnUp({ sign });
+  const signUpCompleted = ({ sign }) => setSIgnUp({ sign });
   return (
     <Router>
       <header>
@@ -55,7 +55,7 @@ function App() {
           <Route
             path="/register"
             render={props => (
-              <RegisterForm authenticated={authenticated} log={log} {...props} />
+              <RegisterForm authenticated={authenticated} signUpCompleted={signUpCompleted} {...props} />
             )}
           />
           <Route
