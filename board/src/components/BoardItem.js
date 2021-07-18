@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useRef } from 'react'
 import moment from 'moment';
 import 'moment/locale/ko';
 import { useDispatch } from 'react-redux';
@@ -10,6 +10,7 @@ const BoardIem = ({ id, content }) => {
     const dispatch = useDispatch();
     const [readOnly, setReadOnly] = useState(true);
     const [updateText, setUpdateText] = useState(content);
+    const onfocus = useRef();
 
     const onChangeText = (e) => {
         const { value } = e.target;
@@ -23,25 +24,32 @@ const BoardIem = ({ id, content }) => {
         }
         console.log(updateText);  //test
         axios.put(`/items/${id}`, data)
+            .then(onfocus.current.focus())
+    }
+    const deleteContent = async () => {
+        dispatch(removeItem(id))
+        axios.delete(`/items/${id}`)
     }
 
 
-
     return (
-        <div>
-            <h3>{id} |  | {date} | user</h3>
+        <div className="BoardItem">
+            <h3 className="number">{id}</h3>
             <input
                 name="content"
                 readOnly={readOnly}
                 defaultValue={content}
                 onChange={onChangeText}
                 onBlur={() => dispatch(updateItem(id, updateText))}
-
+                ref={onfocus}
             />
+            <h3>{date}</h3>
             <button onClick={editContent}>readonly</button>
-            <button onClick={() => dispatch(removeItem(id))}>삭제</button>
+            <button onClick={deleteContent}>삭제</button>
         </div>
     )
 }
 
 export default BoardIem
+
+

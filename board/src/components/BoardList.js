@@ -24,7 +24,7 @@ const BoardList = () => {
 
 
     return (
-        <div>
+        <div className="BoardList">
             <ItemInput />
             {items.map(item => (
                 <BoardItem key={item.id} content={item.content} id={item.id} />
