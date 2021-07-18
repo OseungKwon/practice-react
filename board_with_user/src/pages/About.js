@@ -1,10 +1,12 @@
 import React from 'react';
-import BoardList from '../components/BorderList';
+import { users } from '../auth/auth';
+import BoardList from '../components/BoardList';
 
-const About = () => {
+const About = (props) => {
     return (
         <div>
-            <BoardList />
+            <BoardList props={props} />
+
         </div>
     )
 }

@@ -13,9 +13,11 @@ const App = () => {
   const [user, setUser] = useState(null);
   // authenticated: 로그인 상태 확인
   const authenticated = user != null;
+  console.log(user);
   // 로그인, 로그아웃
   const login = ({ email, password }) => setUser(signIn({ email, password }));
   const logout = () => setUser(null);
+
   // 회원가입
   const [signUp, setSIgnUp] = useState(null);
   const signUpCompleted = ({ sign }) => setSIgnUp({ sign });
@@ -54,7 +56,12 @@ const App = () => {
       <main>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/about" component={About} />
+          <Route
+            path="/about"
+            render={props => (
+              <About  {...props} user={user} />
+            )}
+          />
           <Route
             path="/register"
             render={props => (
