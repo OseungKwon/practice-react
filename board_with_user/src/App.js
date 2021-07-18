@@ -1,24 +1,82 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import { Link, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
+import Profile from './components/Profile';
+import { signIn } from './auth/auth';
+import AuthRoute from './auth/AuthRoute';
+import LogoutButton from './components/LogoutButton';
+import LoginForm from './components/LoginForm';
+import RegisterForm from './components/RegisterForm';
 
-function App() {
+const App = () => {
+  const [user, setUser] = useState(null);
+  // authenticated: 로그인 상태 확인
+  const authenticated = user != null;
+  // 로그인, 로그아웃
+  const login = ({ email, password }) => setUser(signIn({ email, password }));
+  const logout = () => setUser(null);
+  // 회원가입
+  const [signUp, setSIgnUp] = useState(null);
+  const signUpCompleted = ({ sign }) => setSIgnUp({ sign });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <Router>
+      <header>
+        <Link to="/">
+          <button>Home</button>
+        </Link>
+        <Link to="/about">
+          <button>About</button>
+        </Link>
+        <Link to="/profile">
+          <button>Profile</button>
+        </Link>
+        {authenticated ? (
+          <LogoutButton logout={logout} />
+        ) : (
+          <Link to="/login">
+            <button>Login</button>
+          </Link>
+        )}
+        {authenticated ? (
+          <></>
+        ) :
+          (signUpCompleted ? <></> :
+            <Link to="/register">
+              <button>Register</button>
+            </Link>
+          )
+        }
       </header>
-    </div>
+
+      <hr />
+
+      <main>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/about" component={About} />
+          <Route
+            path="/register"
+            render={props => (
+              <RegisterForm authenticated={authenticated} signUpCompleted={signUpCompleted} {...props} />
+            )}
+          />
+          <Route
+            path="/login"
+            render={props => (
+              <LoginForm authenticated={authenticated} login={login} {...props} />
+            )}
+          />
+          <AuthRoute
+            authenticated={authenticated}
+            path="/profile"
+            /*"render={props" 를 쓰는 이유
+            컴포넌트에 props를 넘기기 위해 사용한다 */
+            render={props => <Profile user={user} {...props} />}
+          />
+        </Switch>
+      </main>
+    </Router>
   );
 }
 
