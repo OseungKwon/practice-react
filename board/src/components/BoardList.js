@@ -1,12 +1,25 @@
-import React, { useState } from 'react';
-import { insertItem } from '../redux/items';
+import React, { useState, useEffect } from 'react';
+import { insertItem, loadItem } from '../redux/items';
 import { useSelector, useDispatch } from 'react-redux';
 import BoardItem from './BoardItem';
 import ItemInput from './ItemInput';
+import axios from 'axios';
 
 
 const BoardList = () => {
+    const dispatch = useDispatch()
     const items = useSelector(state => state.items.items);
+    useEffect(() => {
+        const fetchItem = async () => {
+            axios.get('/items')
+                .then(response => {
+                    dispatch(loadItem(response.data));
+                })
+                .catch(err => console.log(err))
+        };
+        fetchItem();
+    }, [dispatch])
+
 
 
 

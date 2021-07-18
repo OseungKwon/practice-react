@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { insertItem } from '../redux/items';
+import axios from 'axios';
 
 const ItemInput = () => {
     const dispatch = useDispatch();
-    const onInsert = content => dispatch(insertItem(content));
+    const onInsert = (id, content) => dispatch(insertItem(id, content));
 
     const [text, setText] = useState('');
     const onChange = e => setText(e.target.value);
-    const onSubmit = e => {
+    const onSubmit = async e => {
         e.preventDefault();
-        onInsert(text);
+        let data = {
+            content: text
+        }
+        axios.post('/items', data)
+            .then(response => {
+                onInsert(response.data.id, text)
+            })
         setText('');
     };
 

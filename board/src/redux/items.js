@@ -2,10 +2,12 @@ import { createAction, handleActions } from 'redux-actions';
 const ITEM_INSERT = 'items/ITEM_INSERT';
 const ITEM_REMOVE = 'items/ITEM_REMOVE';
 const ITEM_UPDATE = 'items/ITEM_UPDATE';
+const ITEM_LOAD = 'items/ITEM_LOAD';
 
-let nextId = 2;
-export const insertItem = createAction(ITEM_INSERT, content => ({
-    id: nextId++,
+export const loadItem = createAction(ITEM_LOAD, items => items)
+
+export const insertItem = createAction(ITEM_INSERT, (id, content) => ({
+    id: id,
     content
 }))
 export const removeItem = createAction(ITEM_REMOVE, id => id)
@@ -13,18 +15,15 @@ export const updateItem = createAction(ITEM_UPDATE, (id, content) => ({
     id: id,
     content: content
 }))
-const init = {
-    items: [
-        {
-            id: 1,
-            content: 'hi'
-        }
-    ]
-}
+
 const items = handleActions(
     {
+        [ITEM_LOAD]: (state, action) => ({
+            items: action.payload
+        }),
         [ITEM_INSERT]: (state, action) => ({
-            items: state.items.concat(action.payload)
+            items: state.items.concat(action.payload),
+            id: action.payload.id
         }),
         [ITEM_REMOVE]: (state, { payload: id }) => ({
             ...state,
@@ -36,7 +35,8 @@ const items = handleActions(
                 item.id === id ? { ...item, content: content } : item)
         })
     },
-
-    init
+    {
+        items: []
+    }
 )
 export default items;

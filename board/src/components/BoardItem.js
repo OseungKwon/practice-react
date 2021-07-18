@@ -3,7 +3,7 @@ import moment from 'moment';
 import 'moment/locale/ko';
 import { useDispatch } from 'react-redux';
 import { removeItem, updateItem } from '../redux/items';
-
+import axios from 'axios';
 let date = moment().format('YYYY. MM. DD. HH:mm:ss');
 
 const BoardIem = ({ id, content }) => {
@@ -11,13 +11,21 @@ const BoardIem = ({ id, content }) => {
     const [readOnly, setReadOnly] = useState(true);
     const [updateText, setUpdateText] = useState(content);
 
-    const onChangeText = useCallback(
-        (e) => {
-            const { value } = e.target;
-            setUpdateText(value);
-        },
-        [updateText]
-    );
+    const onChangeText = (e) => {
+        const { value } = e.target;
+        setUpdateText(value);
+
+    }
+    const editContent = async () => {
+        setReadOnly(!readOnly)
+        let data = {
+            content: updateText
+        }
+        console.log(updateText);  //test
+        axios.put(`/items/${id}`, data)
+    }
+
+
 
     return (
         <div>
@@ -30,8 +38,8 @@ const BoardIem = ({ id, content }) => {
                 onBlur={() => dispatch(updateItem(id, updateText))}
 
             />
-            {id === 1 ? (<button onClick={() => setReadOnly(!readOnly)}>readonly</button>) : (<></>)}
-            {id === 1 ? (<button onClick={() => dispatch(removeItem(id))}>삭제</button>) : (<></>)}
+            <button onClick={editContent}>readonly</button>
+            <button onClick={() => dispatch(removeItem(id))}>삭제</button>
         </div>
     )
 }
