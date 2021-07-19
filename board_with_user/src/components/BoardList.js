@@ -5,16 +5,16 @@ import BoardItem from './BoardItem';
 import ItemInput from './ItemInput';
 
 
-const BoardList = () => {
+const BoardList = (props) => {
     const items = useSelector(state => state.items.items);
-
-
+    const { email, password, name } = props.props.user
+    console.log('usr', email, password, name)
 
     return (
         <div>
             <ItemInput />
             {items.map(item => (
-                <BoardItem key={item.id} content={item.content} id={item.id} />
+                <BoardItem key={item.id} content={item.content} id={item.id} email={email} password={password} name={name} />
             ))}
 
         </div>
