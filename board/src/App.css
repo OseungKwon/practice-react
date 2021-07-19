@@ -1,5 +1,5 @@
 html{
-  background: black;
+  /*background: black;*/
 }
 .BoardList{
   position: relative;
@@ -17,22 +17,52 @@ html{
 .BoardItem{
   display: flex;
   flex-direction: row;
-  padding: 2rem;
-  border-bottom: 1px solid black;
+  padding-top:2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #C0C0C0;
+  justify-content: space-between;
+  width: 80%;
 }
-.BoardItem>input{
+.BoardItem .date{
+  font-weight: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8em;
+  margin-right: 1em;
+}
+.BoardItem input{
   outline: none;
   border: none;
-  font-size: 1.5em;
+  font-size: 1.3em;
 }
-.BoardItem>.number{
-  margin: 1em;
+.BoardItem .number{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3em;
+  margin-right: 1em;
 }
 .BoardItem button{
-  margin-top: 1em;
-  margin-bottom: 1em;
-  margin-left: 0.3em;
-  margin-right: 0.3em;
+  padding-left: 0.7em;
+  padding-right: 0.7em;
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+  margin: 0.3em;
+  background: #A3ACFF;
+  border: none;
+  border-radius: 10px;
+  color: white;
+}
+.BoardItem .main{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.BoardItem .sub{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .ItemInput{
   position:fixed;
@@ -41,7 +71,8 @@ html{
   display: flex;
   align-items: center;
   justify-content: center;
-  background: gray;
+  background: #8E9AFF;
+  
 }
 .ItemInput>form{
   height: 5em;
@@ -51,8 +82,25 @@ html{
 }
 .ItemInput>form>*{
   padding: 1rem;
-  margin: 1rem;
+  margin: 0.8rem;
 }
 .ItemInput>form>input{
-  width: 18em;
+  width: 40em;
+  border-radius: 10px;
+  padding: 0.7em;
+  outline: none;
+  border: none;
+  font-size: 1em;
 }
+.ItemInput .InputButton{
+  background: #A3ACFF;
+  border-radius: 10px;
+  padding-top: 0.8em;
+  padding-bottom: 0.8em;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+

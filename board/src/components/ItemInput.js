@@ -34,7 +34,7 @@ const ItemInput = () => {
                     onChange={onChange}
                     ref={onfocus}
                 />
-                <button type="submit">확인</button>
+                <button type="submit" class="InputButton">확인</button>
             </form>
         </div>
     )

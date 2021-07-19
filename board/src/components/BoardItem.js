@@ -34,19 +34,24 @@ const BoardItem = ({ id, content }) => {
 
     return (
         <div className="BoardItem">
-            <h3 className="number">{id}</h3>
-            <input
-                name="content"
-                readOnly={readOnly}
-                defaultValue={content}
-                onChange={onChangeText}
-                onBlur={() => dispatch(updateItem(id, updateText))}
-                ref={onfocus}
-            />
-            <h3>{date}</h3>
-            <button onClick={editContent}>readonly</button>
-            <button onClick={deleteContent}>삭제</button>
-        </div>
+            <div className="main">
+                <div className="number">{id}</div>
+                <input
+                    name="content"
+                    readOnly={readOnly}
+                    defaultValue={content}
+                    onChange={onChangeText}
+                    onBlur={() => dispatch(updateItem(id, updateText))}
+                    ref={onfocus}
+                />
+            </div>
+            <div className="sub">
+                <div className="date">{date}</div>
+                <button onClick={editContent}>수정</button>
+                <button onClick={deleteContent}>삭제</button>
+            </div >
+
+        </div >
     )
 }
 
