@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { insertItem, loadItem } from '../redux/items';
+import React, { useEffect } from 'react';
+import { loadItem } from '../redux/items';
 import { useSelector, useDispatch } from 'react-redux';
 import BoardItem from './BoardItem';
 import ItemInput from './ItemInput';
