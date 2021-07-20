@@ -7,9 +7,10 @@ const ITEM_LOAD = 'items/ITEM_LOAD';
 // GET 전체 items 가져오기
 export const loadItem = createAction(ITEM_LOAD, items => items)
 // POST
-export const insertItem = createAction(ITEM_INSERT, (id, content) => ({
+export const insertItem = createAction(ITEM_INSERT, (id, content, user) => ({
     id: id,
-    content
+    content,
+    user: user
 }))
 // DELETE
 export const removeItem = createAction(ITEM_REMOVE, id => id)
@@ -26,7 +27,8 @@ const items = handleActions(
         }),
         [ITEM_INSERT]: (state, action) => ({
             items: state.items.concat(action.payload),
-            id: action.id
+            id: action.id,
+            user: action.user
         }),
         [ITEM_REMOVE]: (state, { payload: id }) => ({
             ...state,

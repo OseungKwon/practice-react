@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { insertItem } from '../redux/items';
 import axios from 'axios';
 
-const ItemInput = () => {
+const ItemInput = ({ user }) => {
     const dispatch = useDispatch();
     const onInsert = (id, content) => dispatch(insertItem(id, content));
     const onfocus = useRef();
@@ -15,7 +15,8 @@ const ItemInput = () => {
             return alert('내용을 입력하세요');
         }
         let data = {
-            content: text
+            content: text,
+            user: user.email
         }
         axios.post('/items', data)
             .then(response => {
@@ -34,7 +35,7 @@ const ItemInput = () => {
                     onChange={onChange}
                     ref={onfocus}
                 />
-                <button type="submit" class="InputButton">확인</button>
+                <button type="submit" className="InputButton">확인</button>
             </form>
         </div>
     )

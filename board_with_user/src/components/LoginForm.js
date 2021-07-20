@@ -1,20 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 
 function LoginForm({ authenticated, login, location }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
+    const [text, setText] = useState('');
     const onSubmit = (e) => {
         e.preventDefault();
-        try {
-            login({ email, password });
-        } catch (err) {
-            alert("Failed to login");
-            setEmail("");
-            setPassword("");
-        }
-    };
+
+        login({ email, password });
+        setText('로그인 오류')
+    }
 
     const { from } = location.state || { from: { pathname: "/" } };
     if (authenticated) return <Redirect to={from} />;
@@ -24,17 +20,18 @@ function LoginForm({ authenticated, login, location }) {
             <h1>Login</h1>
             <input
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value) || setText('')}
                 type="text"
                 placeholder="email"
             />
             <input
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value) || setText('')}
                 type="password"
                 placeholder="password"
             />
             <button type="submit" >Login</button>
+            <div>{text}</div>
         </form>
     );
 }

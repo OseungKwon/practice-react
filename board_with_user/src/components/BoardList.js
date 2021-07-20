@@ -6,7 +6,7 @@ import ItemInput from './ItemInput';
 import axios from 'axios';
 
 
-const BoardList = () => {
+const BoardList = ({ user }) => {
     const dispatch = useDispatch()
     const items = useSelector(state => state.items.items);
     useEffect(() => {
@@ -25,9 +25,9 @@ const BoardList = () => {
 
     return (
         <div className="BoardList">
-            <ItemInput />
+            <ItemInput user={user} />
             {items.map(item => (
-                <BoardItem key={item.id} content={item.content} id={item.id} />
+                <BoardItem key={item.id} content={item.content} id={item.id} user={user} />
             ))}
 
         </div>
