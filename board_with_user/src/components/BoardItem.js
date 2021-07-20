@@ -11,7 +11,6 @@ const BoardItem = ({ id, content, user }) => {
     const dispatch = useDispatch();
     const [readOnly, setReadOnly] = useState(true);
     const [updateText, setUpdateText] = useState(content);
-    const [visible, setVisible] = useState('none');
     const onfocus = useRef();
 
     const onChangeText = (e) => {
@@ -38,13 +37,14 @@ const BoardItem = ({ id, content, user }) => {
             axios.get('/items')
                 .then(response => {
                     dispatch(loadItem(response.data));
-                    (response.data.map(res => (res.user === user.email) ? setVisible('block') : setVisible('none')));
-                    console.log(visible)
+                    console.log('run')
                 })
                 .catch(err => console.log(err))
         };
         fetchItem();
-    }, [dispatch])
+    }, [])
+
+
 
     return (
         <div className="BoardItem">
@@ -59,9 +59,7 @@ const BoardItem = ({ id, content, user }) => {
                     ref={onfocus}
                 />
             </div>
-            <div className="sub" style={{
-                display: visible
-            }}>
+            <div className="sub">
                 <div className="date">{date}</div>
                 <button onClick={editContent}>수정</button>
                 <button onClick={deleteContent}>삭제</button>
