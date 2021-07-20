@@ -10,6 +10,32 @@ export const changeField = createAction(
         key,
         value
     })
+);
+export const initializeForm = createAction(
+    INITIALIZE_FORM,
+    form => form
 )
+
+const init = {
+    register: {
+        username: '',
+        password: '',
+        passwordConfirm: '',
+    },
+    login: {
+        username: '',
+        password: '',
+    }
+}
+
+const auth = handleActions({
+    [CHANGE_FILED]: (state, { payload: { form, key, value } }) => ({
+        ...state[form][key] = value
+    }),
+    [INITIALIZE_FORM]: (state, { payload: form }) => ({
+        ...state,
+        [form]: init[form]
+    }),
+}, [init])
 
 export default auth;
