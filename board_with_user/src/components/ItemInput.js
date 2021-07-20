@@ -14,6 +14,9 @@ const ItemInput = ({ user }) => {
         if (text === '') {
             return alert('내용을 입력하세요');
         }
+        if (user === null) {
+            return alert('먼저 로그인 해주세요.');
+        }
         let data = {
             content: text,
             user: user.email

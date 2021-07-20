@@ -11,24 +11,15 @@
       "email": "00osos@naver.com",
       "password": "oseung9221",
       "id": 2
+    },
+    {
+      "name": "x",
+      "email": "x",
+      "password": "x",
+      "id": 3
     }
   ],
   "items": [
-    {
-      "content": "hi",
-      "user": "a",
-      "id": 1
-    },
-    {
-      "content": "my",
-      "user": "a",
-      "id": 2
-    },
-    {
-      "content": "name is",
-      "user": "a",
-      "id": 3
-    },
     {
       "content": "aa",
       "user": "a",
@@ -38,6 +29,16 @@
       "content": "s",
       "user": "a",
       "id": 5
+    },
+    {
+      "content": "aa",
+      "user": "a",
+      "id": 6
+    },
+    {
+      "content": "xxx",
+      "user": "x",
+      "id": 7
     }
   ]
 }
