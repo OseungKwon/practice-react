@@ -3,18 +3,26 @@ import { Link, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
 import Profile from './components/Profile';
-import { signIn } from './auth/auth';
+//import { signIn } from './auth/auth';
 import AuthRoute from './auth/AuthRoute';
 import LogoutButton from './components/LogoutButton';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
+import axios from 'axios'
 
 const App = () => {
   const [user, setUser] = useState(null);
   // authenticated: 로그인 상태 확인
   const authenticated = user != null;
   // 로그인, 로그아웃
-  const login = ({ email, password }) => setUser(signIn({ email, password }));
+  const signIn = async ({ email, password }) => {
+    axios.get('/users')
+      .then(res => setUser(res.data.find((user) => user.email === email && user.password === password))
+      )
+  }
+  console.log(authenticated)
+
+  const login = ({ email, password }) => signIn({ email, password });
   const logout = () => setUser(null);
   // 회원가입
   const [signUp, setSIgnUp] = useState(null);
@@ -38,10 +46,11 @@ const App = () => {
             <button>Login</button>
           </Link>
         )}
+
         {authenticated ? (
           <></>
         ) :
-          (signUpCompleted ? <></> :
+          (//signUpCompleted ? <></> :
             <Link to="/register">
               <button>Register</button>
             </Link>
@@ -55,6 +64,7 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/about" component={About} />
+
           <Route
             path="/register"
             render={props => (

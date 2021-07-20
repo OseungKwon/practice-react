@@ -1,19 +1,28 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useState, useRef } from "react";
 import { Redirect } from "react-router-dom";
-import { users } from '../auth/auth';
 
 function RegisterForm({ authenticated, history, location, signUpCompleted }) {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [text, setText] = useState("");
-
-    const onSubmit = (e) => {
+    const ref = useRef(1)
+    const onSubmit = async (e) => {
         e.preventDefault();
         try {
-            users.push({ name, email, password })
+            ref.current++;
             runTasks();
             signUpCompleted(true)
+            let data = {
+                id: ref.current.value,
+                name: name,
+                email: email,
+                password: password
+            }
+            axios.post('/users', data)
+                .then(res => console.log(res))
+
         } catch (err) {
             alert("Failed to register");
             setEmail("");
