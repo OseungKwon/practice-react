@@ -1,8 +1,8 @@
 import { createAction, handleActions } from 'redux-actions';
 import produce from 'immer';
 import { takeLatest } from 'redux-saga/effects';
-// takeLatest: 특정 액션 타입에 대하여 디스패치된 가장 마지막 액션만을 처리하는 함수
-// takeEvery: 특정 액션 타입에 대하여 디스패치되는 모든 액션들을 처리
+// takeLatest: 특정 액션 타입에 대하여 디스패치된 가장 마지막 액션만을 처리하는 함수(ex 더블클릭)
+// takeEvery: 특정 액션 타입에 대하여 디스패치되는 모든 액션들을 처리)
 import createRequestSaga, {
     createRequestActionTypes
 } from '../lib/createRequestSaga';
@@ -45,13 +45,16 @@ export const login = createAction(LOGIN, ({ username, password }) => ({
 
 
 // saga 생성
+// *as authAPI 이므로 authAPI.register는 api>auth.js에 있는 register를 불러온 것이다.
 const registerSaga = createRequestSaga(REGISTER, authAPI.register);
 const loginSaga = createRequestSaga(LOGIN, authAPI.login);
+// "REGISTER"라는 액션에 대해서 디스패치된 가장 마지막에 액션만을 처리
 export function* authSaga() {
     yield takeLatest(REGISTER, registerSaga);
     yield takeLatest(LOGIN, loginSaga);
 }
 
+// 초기 상태
 const initialState = {
     register: {
         username: '',
@@ -104,7 +107,7 @@ const auth = handleActions(
             authError: error
         })
     },
-    initialState
+    initialState //초기 상태
 );
-
+// 리듀서 이름은 auth!
 export default auth;
