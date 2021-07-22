@@ -1,9 +1,12 @@
 import React from 'react'
+import Editor from '../components/write/Editor'
+import TagBox from '../components/write/TagBox'
 
 const WritePage = () => {
     return (
         <div>
-            write
+            <Editor />
+            <TagBox />
         </div>
     )
 }
