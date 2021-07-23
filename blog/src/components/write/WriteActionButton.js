@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
 import Button from '../common/Button';
 
@@ -18,18 +18,15 @@ const StyledButton = styled(Button)`
   }
 `;
 
+const WriteActionButtons = ({ onCancel, onPublish }) => {
+  return (
+    <WriteActionButtonsBlock>
+      <StyledButton cyan onClick={onPublish}>
+        포스트 등록
+      </StyledButton>
+      <StyledButton onClick={onCancel}>취소</StyledButton>
+    </WriteActionButtonsBlock>
+  );
+};
 
-const WriteActionButton = ({ onCancel, onPublish }) => {
-    return (
-        <div>
-            <WriteActionButtonsBlock>
-                <StyledButton cyan onClick={onPublish}>
-                    포스트 등록
-                </StyledButton>
-                <StyledButton onClick={onCancel}>취소</StyledButton>
-            </WriteActionButtonsBlock>
-        </div>
-    )
-}
-
-export default WriteActionButton
+export default WriteActionButtons;
