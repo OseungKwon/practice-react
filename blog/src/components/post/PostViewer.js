@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import Responsive from '../common/Responsive'
+import SubInfo from '../common/SubInfo';
+import Tags from '../common/Tags';
 
 const PostViewerBlock = styled(Responsive)`
   margin-top: 4rem;
@@ -15,22 +17,7 @@ const PostHead = styled.div`
     margin: 0;
   }
 `;
-const SubInfo = styled.div`
-margin-top: 1rem;
-color: gray;
-`
-const Tags = styled.div`
-margin-top: 0.5rem;
-.tag{
-    display: inline-block;
-    color: blue;
-    text-decoration: none;
-    margin-right: 0.5rem;
-    &:hover{
-        color: deepskyblue;
-    }
-}
-`
+
 const PostContent = styled.div`
 font-size: 1.3125rem;
 color: gray;
