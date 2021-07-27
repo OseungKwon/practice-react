@@ -1,0 +1,9 @@
+백엔드:
+cd desktop\react practice\blog\back
+yarn start:dev
+( 데스크탑에서는 cd desktop\리다기\learning-react\25\blog\blog-backend )
+* yarn으로 설치 안되면 오류 메세지 보고 yarn add로 추가로 깔아줄 것.
+
+프론트엔드: 
+cd desktop\react practice\blog\front
+yarn start
