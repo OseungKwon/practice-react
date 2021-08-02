@@ -59,6 +59,8 @@ const initialState = {
 
 const auth = handleActions(
     {
+        // form이 register,login이고, key가 username, password,passwordConfirm을 가지고 있으므로,
+        // draft[from][key]는 일종의 2차 배열로 생각해야한다.
         [CHANGE_FIELD]: (state, { payload: { form, key, value } }) =>
             produce(state, draft => {
                 draft[form][key] = value; // 예: state.register.username을 바꾼다
