@@ -13,7 +13,8 @@
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^10.0.0",
-    "mongoose": "^5.5.2"
+    "mongoose": "^5.5.2",
+    "sanitize-html": "^2.4.0"
   },
   "devDependencies": {
     "eslint": "^5.16.0",

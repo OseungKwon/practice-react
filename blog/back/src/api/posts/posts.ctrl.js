@@ -1,9 +1,40 @@
 import Post from '../../models/post';
 import mongoose from 'mongoose';
 import Joi from 'joi';
+import sanitizeHtml from 'sanitize-html';
+import { TokContext } from '../../../../../../../AppData/Local/Microsoft/TypeScript/4.3/node_modules/acorn/dist/acorn';
 
 const { ObjectId } = mongoose.Types;
 
+const removeHtmlAndShorten = body => {
+  const filtered = sanitizeHtml(body, {
+    allowedTags: [],
+  })
+  return filtered.length < 200 ? filtered : `${filtered.slice(0, 200)}...`
+}
+const sanitizeOption = {
+  allowedTags: [
+    'h1',
+    'h2',
+    'b',
+    'i',
+    'u',
+    's',
+    'p',
+    'ul',
+    'ol',
+    'li',
+    'blockquote',
+    'a',
+    'img',
+  ],
+  allowedAttributes: {
+    a: ['herf', 'name', 'target'],
+    img: ['src'],
+    li: ['class'],
+  },
+  allowedSchemes: ['data', 'http'],
+};
 export const getPostById = async (ctx, next) => {
   const { id } = ctx.params;
   if (!ObjectId.isValid(id)) {
@@ -104,7 +135,7 @@ export const list = async (ctx) => {
     ctx.body = posts.map((post) => ({
       ...post,
       body:
-        post.body.length < 200 ? post.body : `${post.body.slice(0, 200)}...`,
+        removeHtmlAndShorten(post.body),
     }));
   } catch (e) {
     ctx.throw(500, e);
@@ -155,9 +186,13 @@ export const update = async (ctx) => {
     ctx.body = result.error;
     return;
   }
+  const nextData = { ...ctx.request.body };
+  if (nextData.body) {
+    nextData.body = sanitizeHtml(nextData.body, sanitizeOption);
+  }
 
   try {
-    const post = await Post.findByIdAndUpdate(id, ctx.request.body, {
+    const post = await Post.findByIdAndUpdate(id, nextData, {
       new: true, // 이 값을 설정하면 업데이트된 데이터를 반환합니다.
       // false 일 때에는 업데이트 되기 전의 데이터를 반환합니다.
     }).exec();

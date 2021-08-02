@@ -1,6 +1,7 @@
-import React from 'react'
-import styled from 'styled-components'
-import Responsive from '../common/Responsive'
+import React from 'react';
+import styled from 'styled-components';
+import palette from '../../lib/styles/palette';
+import Responsive from '../common/Responsive';
 import SubInfo from '../common/SubInfo';
 import Tags from '../common/Tags';
 
@@ -8,7 +9,7 @@ const PostViewerBlock = styled(Responsive)`
   margin-top: 4rem;
 `;
 const PostHead = styled.div`
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid ${palette.gray[2]};
   padding-bottom: 3rem;
   margin-bottom: 3rem;
   h1 {
@@ -19,8 +20,8 @@ const PostHead = styled.div`
 `;
 
 const PostContent = styled.div`
-font-size: 1.3125rem;
-color: gray;
+  font-size: 1.3125rem;
+  color: ${palette.gray[8]};
 `;
 
 const PostViewer = ({ post, error, loading }) => {
@@ -36,6 +37,7 @@ const PostViewer = ({ post, error, loading }) => {
     if (loading || !post) {
         return null;
     }
+
     const { title, body, user, publishedDate, tags } = post;
     return (
         <PostViewerBlock>
