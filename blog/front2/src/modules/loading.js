@@ -1,3 +1,4 @@
+// 로딩 상태
 import { createAction, handleActions } from 'redux-actions';
 
 const START_LOADING = 'loading/START_LOADING'; // 로딩 시작

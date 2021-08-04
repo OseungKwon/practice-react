@@ -40,6 +40,12 @@ const ButtonWithMarginTop = styled(Button)`
   margin-bottom: 1rem;
 `;
 
+// 에러 메세지
+const ErrorMessage = styled.div`
+  color: red;
+  text-align: center;
+`;
+
 // 능동적으로 컴포넌트 관리 위해, props로 type를 받아
 // 로그인, 회원가입을 하나의 Form으로 만든다.
 const textMap = {
@@ -47,7 +53,7 @@ const textMap = {
   register: '회원가입',
 };
 // 로그인 시, type=>auth, form=>login 받음
-const AuthForm = ({ type, form, onChange, onSubmit }) => {
+const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
   const text = textMap[type];
   return (
     <AuthFormBlock>
@@ -78,6 +84,8 @@ const AuthForm = ({ type, form, onChange, onSubmit }) => {
             value={form.passwordConfirm}
           />
         )}
+        {error && <ErrorMessage>{error}</ErrorMessage>}
+        {/* cyan, fullWidth로 인해 기존 버튼과 조금 달라짐 */}
         <ButtonWithMarginTop cyan fullWidth>
           {text}
         </ButtonWithMarginTop>
