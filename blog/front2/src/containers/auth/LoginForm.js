@@ -20,7 +20,6 @@ const LoginForm = ({ history }) => {
   const onChange = (e) => {
     // value에는 값이, name에는
     const { value, name } = e.target;
-    console.log(value, name);
     // changeField 액션 실행, form, key, value를 넣어
     //draft[from][key]=value로 저장
     dispatch(
@@ -62,6 +61,12 @@ const LoginForm = ({ history }) => {
   useEffect(() => {
     if (user) {
       history.push('/');
+      try {
+        // 로컬 스토리지에 user 정보 저장
+        localStorage.setItem('user', JSON.stringify(user));
+      } catch (e) {
+        console.log('localStorage is not working');
+      }
     }
   }, [history, user]);
 

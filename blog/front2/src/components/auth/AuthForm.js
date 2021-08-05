@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
 import { Link } from 'react-router-dom';
+
 // WhiteBox 바로 안에 있게되는 AuthFormBolck
 const AuthFormBlock = styled.div`
   h3 {
@@ -23,6 +24,7 @@ const StyledInput = styled.input`
   padding-bottom: 0.5rem;
   margin-bottom: 1rem;
 `;
+
 // Link로 회원가입이면->로그인으로 넘어갈 수 있음
 const Footer = styled.div`
   text-align: right;
@@ -34,6 +36,7 @@ const Footer = styled.div`
     }
   }
 `;
+
 // 제출하는 버튼
 const ButtonWithMarginTop = styled(Button)`
   margin-top: 2rem;

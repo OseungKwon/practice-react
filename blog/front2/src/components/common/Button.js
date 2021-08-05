@@ -3,9 +3,10 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import palette from '../../lib/styles/palette';
+import { Link } from 'react-router-dom';
 // 팔레트에서 만들어 둔 색 ${}로 가져옴
 // StyledButton과 hover가 동시에 일어날 때, 아래 코드를 실행
-const StyledButton = styled.button`
+const buttonStyled = css`
   border: none;
   border-radius: 4px;
   font-size: 1rem;
@@ -37,9 +38,21 @@ const StyledButton = styled.button`
       }
     `};
 `;
-
+const StyledButton = styled.button`
+  ${buttonStyled}
+`;
+const StyledLink = styled(Link)`
+  ${buttonStyled}
+`;
+// <Button to="login">과 같은 형식으로 링크를 사용하는데,
+// props.to가 존재하면(ex login) Link태그를 선택한다.
+// props.cyan ? 1: 0 사용이유: 임의 props를 필터링 해주기 위해서
 const Button = (props) => {
-  return <StyledButton {...props} />;
+  return props.to ? (
+    <StyledLink {...props} cyan={props.cyan ? 1 : 0} />
+  ) : (
+    <StyledButton {...props} />
+  );
 };
 
 export default Button;
