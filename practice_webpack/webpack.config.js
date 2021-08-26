@@ -1,5 +1,5 @@
 const path = require("path");
-const webpack = require("webpack");
+const RefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
 module.exports = {
   name: "wordrelay-setting",
@@ -19,7 +19,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?/,
+        test: /\.jsx?$/,
         loader: "babel-loader",
         options: {
           presets: [
@@ -28,23 +28,30 @@ module.exports = {
               {
                 targets: {
                   browsers: ["> 5% in KR", "last 2 chrome versions"] //browserslist -> 나중에 잘 쓰일수도
-                }
+                },
+                debug: true
               }
             ],
             "@babel/preset-react"
           ],
-          plugins: []
-        }
+          plugins: ["react-refresh/babel"] // hot Reloading 기능
+        },
+        exclude: path.join(__dirname, "node_modules")
       }
     ]
   },
   plugins: [
     // 추가적으로 확장하고 싶은 경우 플러그인 사용
-    new webpack.LoaderOptionsPlugin({ debug: true })
+    new RefreshWebpackPlugin() // hot Reloading 기능(변경점에 따라서 저장했던 결과물을 수정해줌)
   ],
   // 출력(App.js) <3. output으로 뺀다>
   output: {
     path: path.join(__dirname, "dist"), // path.join 하면 경로를 합쳐줌(현재 폴더+dist)
-    filename: "app.js"
+    filename: "app.js",
+    publicPath: "/dist"
+  },
+  devServer: {
+    publicPath: "/dist",
+    hot: true
   }
 };
