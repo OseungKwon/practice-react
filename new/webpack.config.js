@@ -2,7 +2,7 @@ const path = require("path");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
 module.exports = {
-  name: "word-relay-dev",
+  name: "number-baseball-dev",
   mode: "development",
   devtool: "inline-source-map",
   resolve: {
@@ -33,10 +33,10 @@ module.exports = {
       }
     ]
   },
-  plugins: [new ReactRefreshWebpackPlugin({ overlay: false })],
+  plugins: [new ReactRefreshWebpackPlugin()],
   output: {
     path: path.join(__dirname, "dist"),
-    filename: "app.js",
+    filename: "[name].js",
     publicPath: "/dist"
   },
   devServer: {
