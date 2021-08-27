@@ -1,40 +1,39 @@
-const React = require("react");
-const { useState } = React;
+// const React = require("react");
+// const { useState } = React;
+
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 
 const WordRelay = () => {
-  const [word, setWord] = useState("제로초");
-  const [value, setValue] = useState("");
-  const [result, setResult] = useState("");
-  const inputEl = React.useRef(null);
+  const [data, setData] = useState({
+    a: 0,
+    b: 0
+  });
 
-  const onSubmitForm = (e) => {
-    e.preventDefault();
-    if (word[word.length - 1] === value[0]) {
-      setResult("딩동댕");
-      setWord(value);
-      setValue("");
-      inputEl.current.focus();
-    } else {
-      setResult("땡");
-      setValue("");
-      inputEl.current.focus();
-    }
+  const [sum, setSum] = useState(0);
+  const onChange = (e) => {
+    const nextData = {
+      ...data,
+      [e.target.id]: Number(e.target.value)
+    };
+    setData(nextData);
   };
+  console.log(data);
+
+  useEffect(() => {
+    setSum(data.a + data.b);
+    console.log(sum);
+  }, [data]);
 
   return (
     <>
-      <div>{word}</div>
-      <form onSubmit={onSubmitForm}>
-        <input
-          ref={inputEl}
-          value={value}
-          onChange={(e) => setValue(e.currentTarget.value)}
-        />
-        <button>입력!</button>
-      </form>
-      <div>{result}</div>
+      <div>sample page</div>
+      <input onChange={onChange} id="a" />
+      <input onChange={onChange} id="b" />
+      <div>{sum}</div>
     </>
   );
 };
 
-module.exports = WordRelay;
+//module.exports = WordRelay;
+export default WordRelay;
