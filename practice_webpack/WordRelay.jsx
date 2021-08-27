@@ -18,11 +18,11 @@ const WordRelay = () => {
     };
     setData(nextData);
   };
-  console.log(data);
+  console.log("data", data);
 
   useEffect(() => {
     setSum(data.a + data.b);
-    console.log(sum);
+    console.log("sum", sum);
   }, [data]);
 
   return (

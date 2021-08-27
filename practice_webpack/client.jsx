@@ -10,5 +10,5 @@ import ReactDom from "react-dom";
 import TicTackToe from "./TicTackToe";
 import WordRelay from "./WordRelay";
 
-ReactDom.render(<TicTackToe />, document.querySelector("#root"));
-//ReactDom.render(<WordRelay />, document.querySelector("#root"));
+// ReactDom.render(<TicTackToe />, document.querySelector("#root"));
+ReactDom.render(<WordRelay />, document.querySelector("#root"));

@@ -1,8 +1,8 @@
-// const path = require("path");
-// const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
+const path = require("path");
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
-import path from "path";
-import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
+// import path from "path";
+// import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 
 module.exports = {
   name: "word-relay-dev",
