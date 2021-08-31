@@ -5,21 +5,13 @@
 
 import { atom, selector } from "recoil";
 
-export const inputState = atom({
-  key: "inputState", // 고유 키
-  default: [] // 초기 값
-});
+export const recoilBoxOfficeState = selector({
+  key: "recoilBoxOfficeState",
+  get: async () => {
+    const res = await fetch(
+      "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=20120101"
+    );
 
-export const countState = atom({
-  key: "countState",
-  default: 0
-});
-
-// selector는 파생된 상태의 일부를 나타냄
-// 여기서 파생된 상태 === 상태의 변화
-export const countInputState = selector({
-  key: "countInputState",
-  get: ({ get }) => {
-    return `현재 카운트는 ${get(countState)}이고 ${get(inputState)}`;
+    return await res.json();
   }
 });
