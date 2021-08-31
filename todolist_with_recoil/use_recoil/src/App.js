@@ -1,10 +1,10 @@
 import React from "react";
-import TodoView from "./TodoView";
+import BoxOffice from "./BoxOffice";
 
 const App = () => {
   return (
     <>
-      <TodoView />
+      <BoxOffice />
     </>
   );
 };
