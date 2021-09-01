@@ -3,10 +3,11 @@ import { useRecoilState, useRecoilValueLoadable, useSetRecoilState } from 'recoi
 import { RegisterData, SubmitData } from './atoms/authAtom'
 import AuthForm from './AuthForm'
 import axios from 'axios'
+import { register } from './api/api'
+import { commonNotification } from './atoms/common'
 
-
-const RegisterPage = () => {
-    const [form, setForm] = useRecoilState(RegisterData)
+const RegisterPage = ({ history }) => {
+    const [form, setForm] = useState(RegisterData)
 
     const onChange = e => {
         const nextForm = {
@@ -17,8 +18,15 @@ const RegisterPage = () => {
     }
     const onSubmit = async e => {
         e.preventDefault();
-        const data = await axios.post('http://localhost:3003/register', form)
-        await console.log(data)
+        await register(form)
+            .then(res => {
+                if (res.data.success) {
+                    console.log(res)
+                    history.push('/login')
+                } else {
+                    alert(res.data.err.name)
+                }
+            })
 
 
 

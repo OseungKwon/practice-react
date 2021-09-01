@@ -34,6 +34,13 @@
       "password": "a",
       "passwordConfirm": "a",
       "id": 5
+    },
+    {
+      "name": "a",
+      "email": "a",
+      "password": "a",
+      "passwordConfirm": "a",
+      "id": 6
     }
   ]
 }

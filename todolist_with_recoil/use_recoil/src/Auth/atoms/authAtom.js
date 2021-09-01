@@ -7,7 +7,8 @@ export const RegisterData = atom({
         name: '',
         email: '',
         password: '',
-        passwordConfirm: ''
+        passwordConfirm: '',
+        lastName: 'user'
     }
 })
 
@@ -24,6 +25,6 @@ export const SubmitData = atom({
 //     }
 // })
 
-const register = data => {
-    return axios.post('http://localhost:3003/register', data)
-}
+// const register = data => {
+//     return axios.post('http://localhost:3003/register', data)
+// }
