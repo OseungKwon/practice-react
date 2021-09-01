@@ -1,0 +1,39 @@
+{
+  "register": [
+    {
+      "name": "xcv",
+      "email": "xcv",
+      "password": "xcv",
+      "passwordConfirm": "xcv",
+      "id": 1
+    },
+    {
+      "name": "ccc",
+      "email": "xx",
+      "password": "xcv",
+      "passwordConfirm": "zzzz",
+      "id": 2
+    },
+    {
+      "name": "ccc",
+      "email": "xx",
+      "password": "xcv",
+      "passwordConfirm": "zzzz",
+      "id": 3
+    },
+    {
+      "name": "ccc",
+      "email": "xx",
+      "password": "xcv",
+      "passwordConfirm": "zzzz",
+      "id": 4
+    },
+    {
+      "name": "a",
+      "email": "a",
+      "password": "a",
+      "passwordConfirm": "a",
+      "id": 5
+    }
+  ]
+}
