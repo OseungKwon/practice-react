@@ -3,8 +3,9 @@
 // atom 값을 읽는 컴포넌트들은 암문적으로 atom을 구독한다.
 // 따라서 atom 변환 => 구독하는 컴포넌트들의 리렌더링
 
-import { selector } from "recoil";
+import { atom, selector } from "recoil";
 
+// BoxOffice
 export const recoilBoxOfficeState = selector({
   key: "recoilBoxOfficeState",
   get: async () => {
@@ -15,3 +16,9 @@ export const recoilBoxOfficeState = selector({
     return await res.json();
   }
 });
+
+// TodoList
+export const todoListState = atom({
+  key: 'todoListState',
+  default: []
+})
