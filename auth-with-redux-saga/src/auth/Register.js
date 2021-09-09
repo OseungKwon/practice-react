@@ -35,10 +35,15 @@ const Register = () => {
 			const res = await axios.post('http://localhost:5000/api/users/register', data);
 			const pData = await res;
 			await console.log(pData);
-			dispatch(postDataSuccess(pData.data));
+			if (pData.data.success === true) {
+				dispatch(postDataSuccess(pData.data));
+			} else {
+				dispatch(postDataFailure());
+				alert('api error');
+			}
 		} catch (error) {
 			dispatch(postDataFailure());
-			alert('error');
+			alert('connect error');
 		}
 	};
 	//const user = useSelector((state) => state.users);
