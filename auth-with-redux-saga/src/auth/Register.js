@@ -20,7 +20,7 @@ const Register = () => {
 		};
 		setForm(nextForm);
 	};
-	const onSubmit = (e) => {
+	const onSubmit = async (e) => {
 		e.preventDefault();
 
 		let data = {
@@ -31,15 +31,25 @@ const Register = () => {
 			passwordConfirm
 		};
 		//console.log('data', data);
-
-		dispatch(postDataSuccess(data));
+		try {
+			const res = await axios.post('http://localhost:5000/api/users/register', data);
+			const pData = await res;
+			await console.log(pData);
+			dispatch(postDataSuccess(pData.data));
+		} catch (error) {
+			dispatch(postDataFailure());
+			alert('error');
+		}
 	};
-	const user = useSelector((state) => state.users);
+	//const user = useSelector((state) => state.users);
 	//console.log(form);
-	console.log('user', user);
-	useEffect(() => {
-		dispatch(postData());
-	}, dispatch);
+	//console.log('user', user);
+	useEffect(
+		() => {
+			dispatch(postData());
+		},
+		[ dispatch ]
+	);
 	return (
 		<form onSubmit={onSubmit}>
 			<div>
