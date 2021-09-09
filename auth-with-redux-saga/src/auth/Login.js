@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { postData, postDataSuccess, postDataFailure } from "./registerSlice";
+import { postData, postDataSuccess, postDataFailure } from "./loginSlice";
 import axios from "axios";
 
-const Register = () => {
+const Login = () => {
   const dispatch = useDispatch();
   const [form, setForm] = useState({
-    name: "",
     email: "",
-    password: "",
-    passwordConfirm: ""
+    password: ""
   });
-  const { name, email, password, passwordConfirm } = form;
+  const { email, password } = form;
 
   const onChange = (e) => {
     const nextForm = {
@@ -20,44 +18,36 @@ const Register = () => {
     };
     setForm(nextForm);
   };
+
   const onSubmit = async (e) => {
     e.preventDefault();
 
     let data = {
-      name,
       email,
-      password,
-      passwordConfirm
+      password
     };
-    //console.log('data', data);
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/users/register",
+        "http://localhost:5000/api/users/login",
         data
       );
-      if (res.data.success === true) {
-        dispatch(postDataSuccess());
+      console.log(res.data);
+      if (res.data.loginSuccess) {
+        console.log("success", res.data.userId, typeof res.data.userId);
+        dispatch(postDataSuccess(res.data.userId));
       } else {
-        dispatch(postDataFailure(res.data.err));
-        alert("Mongo error");
+        dispatch(postDataFailure(res.data.message));
       }
     } catch (error) {
       dispatch(postDataFailure(error));
       alert(error);
     }
   };
-  //const user = useSelector((state) => state.users);
-  //console.log(form);
-  //console.log('user', user);
   useEffect(() => {
     dispatch(postData());
   }, [dispatch]);
   return (
     <form onSubmit={onSubmit}>
-      <div>
-        <span>이름</span>
-        <input type="text" placeholder="이름" id="name" onChange={onChange} />
-      </div>
       <div>
         <span>이메일</span>
         <input
@@ -76,18 +66,9 @@ const Register = () => {
           onChange={onChange}
         />
       </div>
-      <div>
-        <span>비밀번호 확인</span>
-        <input
-          type="password"
-          placeholder="비밀번호 확인"
-          id="passwordConfirm"
-          onChange={onChange}
-        />
-      </div>
-      <button type="submit">계정 만들기</button>
+      <button type="submit">로그인</button>
     </form>
   );
 };
 
-export default Register;
+export default Login;
