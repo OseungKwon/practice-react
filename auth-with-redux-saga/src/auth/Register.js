@@ -46,9 +46,9 @@ const Register = () => {
       alert(error);
     }
   };
-  //const user = useSelector((state) => state.users);
+  const user = useSelector((state) => state.users);
   //console.log(form);
-  //console.log('user', user);
+  console.log("user", user);
   useEffect(() => {
     dispatch(postData());
   }, [dispatch]);

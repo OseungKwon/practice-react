@@ -1,23 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  loading: false,
-  loginSuccess: false
-};
+// const initialState = {
+//   loading: false,
+//   loginSuccess: false
+// };
+
+const initialState = {};
 export const loginSlice = createSlice({
-  name: "login",
+  name: "user",
   initialState,
   reducers: {
     postData: (state) => {
-      state.loading = true;
+      //state.loading = true;
     },
     postDataSuccess: (state, action) => {
-      state.loading = false;
-      state.loginSuccess = true;
-      state.userId = action.payload;
+      //state.loading = false;
+      state.userData = action.payload;
     },
     postDataFailure: (state, action) => {
-      state.loading = false;
+      //state.loading = false;
       state.loginSuccess = false;
       state.err = action.payload;
     }

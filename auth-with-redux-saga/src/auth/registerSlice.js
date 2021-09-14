@@ -1,9 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  loading: false,
-  success: false
-};
+const initialState = {};
 export const registerSlice = createSlice({
   name: "register",
   initialState,

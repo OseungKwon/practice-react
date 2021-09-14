@@ -4,6 +4,8 @@ import { postData, postDataSuccess, postDataFailure } from "./loginSlice";
 import axios from "axios";
 
 const Login = () => {
+  const user = useSelector((state) => state.user.loginSuccess);
+  console.log("user", user);
   const dispatch = useDispatch();
   const [form, setForm] = useState({
     email: "",
@@ -34,9 +36,9 @@ const Login = () => {
       console.log(res.data);
       if (res.data.loginSuccess) {
         console.log("success", res.data.userId, typeof res.data.userId);
-        dispatch(postDataSuccess(res.data.userId));
+        dispatch(postDataSuccess(res.data));
       } else {
-        dispatch(postDataFailure(res.data.message));
+        dispatch(postDataFailure(res.data));
       }
     } catch (error) {
       dispatch(postDataFailure(error));
@@ -46,6 +48,14 @@ const Login = () => {
   useEffect(() => {
     dispatch(postData());
   }, [dispatch]);
+
+  if (user) {
+    const show = async () => {
+      const showdata = await axios.get("http://localhost:5000/api/users/auth");
+      console.log(showdata);
+    };
+    show();
+  }
   return (
     <form onSubmit={onSubmit}>
       <div>
