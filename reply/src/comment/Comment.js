@@ -1,11 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { addComment } from '../redux/comment'
 import ReplyComment from './ReplyComment'
 
 const Comment = () => {
+
+    const [local, setLocal] = useState([])
+
+
     const dispatch = useDispatch()
     const comments = useSelector(state => state.comment)
+    // comments.push({ a: 'bb' })
     const [commentValue, setCommentValule] = useState('')
     const [text, setText] = useState('')
     const onSubmit = (e) => {
@@ -14,11 +19,25 @@ const Comment = () => {
         let data = {
             content: text,
             writer: 'jamong',
-            postId: '123123'
+            postId: '123123',
+            responseTo: 'root'
         }
         dispatch(addComment(data))
+        //localStorage.setItem('reply', JSON.stringify(data))
+        //setLocal([...local, data])
+        //console.log(local)
+
+
         setText('')
     }
+    // useEffect(() => {
+    //     localStorage.getItem('reply') && setLocal([...JSON.parse(localStorage.getItem('reply'))])
+    //     console.log('a')
+    // }, [])
+    useEffect(() => {
+        localStorage.setItem('reply', JSON.stringify(comments))
+        setLocal(comments.filter(comment => comment.responseTo === 'root'))
+    }, [comments])
     return (
         <div>
             <form onSubmit={onSubmit}>
@@ -29,10 +48,10 @@ const Comment = () => {
                 />
                 <button type='submit'>제출</button>
             </form>
-            {comments.map((comment, index) => (
+            {local.map((comment, index) => (
                 <>
                     <div key={index}>{comment.content}</div>
-                    <ReplyComment />
+                    <ReplyComment responseTo={comment.content} />
                 </>))}
         </div>
 

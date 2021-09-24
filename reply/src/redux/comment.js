@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = []
+const initialState = localStorage.getItem('reply') ? [...JSON.parse(localStorage.getItem('reply'))] : []
 export const commentSlice = createSlice({
     name: 'comment',
     initialState,
     reducers: {
         addComment(state, action) {
-            const { content, writer, postId } = action.payload
-            state.push({ content, writer, postId })
+            const { content, writer, postId, responseTo } = action.payload
+            state.push({ content, writer, postId, responseTo })
         }
     }
 })
