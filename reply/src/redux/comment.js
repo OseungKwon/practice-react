@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = localStorage.getItem('reply') ? [...JSON.parse(localStorage.getItem('reply'))] : []
+// 초기 상태를 localStorage에서 가져온다. 만약 'reply'가 존재하지 않으면 [] 사용
 export const commentSlice = createSlice({
     name: 'comment',
     initialState,
