@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react'
+import { Stack, TextField, Button, Avatar } from '@mui/material';
+import { Box } from '@mui/system';
+import uuid from "react-uuid"
+
 import { useSelector, useDispatch } from 'react-redux'
 import comment, { addComment } from '../redux/comment'
 
 const ReplyComment = ({ responseTo }) => {
 
     const [local, setLocal] = useState([])
+    const [display, setDisplay] = useState(false)
 
 
     const dispatch = useDispatch()
@@ -19,7 +24,8 @@ const ReplyComment = ({ responseTo }) => {
             content: text,
             writer: 'jamong',
             postId: '123123',
-            responseTo: responseTo
+            responseTo: responseTo,
+            commentId: uuid()
         }
         dispatch(addComment(data))
 
@@ -31,22 +37,38 @@ const ReplyComment = ({ responseTo }) => {
         setLocal(comments.filter(comment => comment.responseTo === responseTo))
     }, [comments])
     return (
-        <div style={{ marginLeft: "3rem" }} >
-            <form onSubmit={onSubmit}>
-                <textarea
-                    onChange={(e) => { setText(e.target.value) }}
-                    placeholder="댓글"
-                    value={text}
-                />
-                <button type='submit'>제출</button>
+        <Stack sx={{ m: 1, ml: 4 }}>
+            <Button onClick={() => { setDisplay(!display) }} sx={{ width: '10rem' }}>댓글</Button>
+            {display &&
+                <div>
+                    <Box onSubmit={onSubmit}
+                        component="form"
+                        sx={{ m: 2 }}
+                    >
+                        <TextField
+                            onChange={(e) => { setText(e.target.value) }}
+                            placeholder="답변 추가"
+                            value={text}
+                            id="outlined-size-small"
+                            size="small"
+                            variant="standard"
+                            sx={{ width: '20rem' }}
+                        />
+                    </Box>
+                    {local.map(comment =>
 
-            </form>
-            {local.map(comment => <>
-                <div>{comment.content}</div>
-                <ReplyComment responseTo={comment.content} />
-            </>
-            )}
-        </div>
+                        <Box key={comment.commentId}>
+                            <Stack direction="row" spacing={2}>
+                                <Avatar sx={{ bgcolor: 'orangered' }}>{comment.writer.slice(0, 2)}</Avatar>
+                                <Box sx={{ color: 'gray' }}>{comment.writer}</Box>
+                            </Stack>
+                            <Box sx={{ padding: "20px 20px" }}>{comment.content}</Box>
+                            <ReplyComment responseTo={comment.commentId} />
+                        </Box>
+                    )}
+                </div>
+            }
+        </Stack>
     )
 }
 
