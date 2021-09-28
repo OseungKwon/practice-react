@@ -6,10 +6,10 @@ import Toast from "./comment/Toast";
 const App = () => {
   return (
     <div>
-      <div>
+      {/* <div>
         <Toast />
       </div>
-      <hr />
+      <hr /> */}
       <div>
         <Button
           onClick={() => {
