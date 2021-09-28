@@ -9,8 +9,16 @@ export const commentSlice = createSlice({
   initialState,
   reducers: {
     addComment(state, action) {
-      const { content, writer, postId, responseTo, commentId } = action.payload;
-      state.push({ content, writer, postId, responseTo, commentId });
+      const { content, writer, postId, responseTo, commentId, created_at } =
+        action.payload;
+      state.push({
+        content,
+        writer,
+        postId,
+        responseTo,
+        commentId,
+        created_at,
+      });
     },
   },
   // 수정 기능은 해당 댓글 검색해서 마크다운 가져온 뒤(content), toast 에디터에 initialValue로 넣어주기
