@@ -5,25 +5,19 @@ import uuid from "react-uuid";
 import { addComment } from "../redux/comment";
 import ReplyComment from "./ReplyComment";
 
-import { Stack, TextField, Button, Avatar } from "@mui/material";
-import { border, Box } from "@mui/system";
+import { Stack, Button, Avatar } from "@mui/material";
+import { Box } from "@mui/system";
 
 // markdown, toast editor
-import Prism from "prismjs";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
 
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { dark } from "react-syntax-highlighter/dist/cjs/styles/prism/atom-dark";
-
-import ReactMarkdown from "react-markdown";
 import Markdown from "../component/Markdown";
 
 const Comment = () => {
   const [local, setLocal] = useState([]);
   const dispatch = useDispatch();
   const comments = useSelector((state) => state.comment);
-  const [commentValue, setCommentValule] = useState("");
   const [display, setDisplay] = useState(false);
   const editorRef = useRef();
 
@@ -76,12 +70,23 @@ const Comment = () => {
       {local.map((comment, index) => (
         <Box sx={{ m: 2 }} key={comment.commentId}>
           <Stack direction="row" spacing={2}>
-            <Avatar sx={{ bgcolor: "orangered" }}>
+            <Avatar
+              sx={{ bgcolor: "orangered", width: "2rem", height: "2rem" }}
+            >
               {comment.writer.slice(0, 2)}
             </Avatar>
-            <Box sx={{ color: "gray" }}>{comment.writer}</Box>
+            <Box
+              sx={{
+                color: "gray",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {comment.writer}
+            </Box>
           </Stack>
-          <Box key={index} sx={{ padding: "20px 20px" }}>
+          <Box key={index} sx={{ padding: "0px 20px" }}>
             <Markdown comment={comment} />
           </Box>
           <ReplyComment responseTo={comment.commentId} />
