@@ -20,6 +20,11 @@ const Item = styled(Box)(({ theme }) => ({
   lineHeight: "1rem"
 }));
 
+const ProfileIcon = styled(Avatar)(({theme}))=>({
+  bgcolor: "orangered", width: "2rem", height: "2rem"
+})
+
+
 const ReplyComment = ({ responseTo }) => {
   const [local, setLocal] = useState([]);
   const [display, setDisplay] = useState(false);
