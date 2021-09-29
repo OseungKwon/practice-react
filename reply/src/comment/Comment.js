@@ -16,6 +16,8 @@ import { Editor } from "@toast-ui/react-editor";
 
 import Markdown from "../component/Markdown";
 
+import { check_kor, timeForToday } from "../component/CommentTool";
+
 const Item = styled(Box)(({ theme }) => ({
   ...theme.typography.body2,
   paddingTop: theme.spacing(1),
@@ -23,7 +25,7 @@ const Item = styled(Box)(({ theme }) => ({
   textAlign: "center",
   color: "#737373",
   fontSize: "1rem",
-  lineHeight: "1rem",
+  lineHeight: "1rem"
 }));
 
 const Comment = () => {
@@ -57,39 +59,10 @@ const Comment = () => {
       postId: "123123",
       responseTo: "root",
       commentId: uuid(),
-      created_at: `${date}`,
+      created_at: `${date}`
     };
     dispatch(addComment(data));
   };
-
-  // 프로필 아이콘 글자 한글일때 구분
-  const check_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-
-  // time
-  function timeForToday(time) {
-    const now = new Date();
-    const created_at = new Date(time);
-
-    const minute = Math.floor(
-      (now.getTime() - created_at.getTime()) / 1000 / 60
-    );
-    if (minute < 1) return "방금전";
-    if (minute < 60) {
-      return `${minute}분전`;
-    }
-
-    const hour = Math.floor(minute / 60);
-    if (hour < 24) {
-      return `${hour}시간전`;
-    }
-
-    const day = Math.floor(minute / 60 / 24);
-    if (day < 365) {
-      return `${day}일전`;
-    }
-
-    return `${Math.floor(day / 365)}년전`;
-  }
 
   useEffect(() => {
     localStorage.setItem("reply", JSON.stringify(comments));

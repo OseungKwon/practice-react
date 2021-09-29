@@ -9,13 +9,15 @@ import { addComment } from "../redux/comment";
 import Markdown from "../component/Markdown";
 import { Editor } from "@toast-ui/react-editor";
 
+import { check_kor, timeForToday } from "../component/CommentTool";
+
 const Item = styled(Box)(({ theme }) => ({
   ...theme.typography.body2,
   paddingTop: theme.spacing(1),
   paddingBottom: theme.spacing(1),
   textAlign: "center",
   color: theme.palette.text.secondary,
-  lineHeight: "1rem",
+  lineHeight: "1rem"
 }));
 
 const ReplyComment = ({ responseTo }) => {
@@ -25,7 +27,10 @@ const ReplyComment = ({ responseTo }) => {
   const dispatch = useDispatch();
   const comments = useSelector((state) => state.comment);
 
+  // mock user
+
   const editorRef = useRef();
+
   const onSubmit = (e) => {
     e.preventDefault();
     const editorInstance = editorRef.current.getInstance();
@@ -38,36 +43,10 @@ const ReplyComment = ({ responseTo }) => {
       postId: "123123",
       responseTo: responseTo,
       commentId: uuid(),
-      created_at: `${date}`,
+      created_at: `${date}`
     };
     dispatch(addComment(data));
   };
-
-  //시간
-  function timeForToday(value) {
-    const today = new Date();
-    const timeValue = new Date(value);
-
-    const betweenTime = Math.floor(
-      (today.getTime() - timeValue.getTime()) / 1000 / 60
-    );
-    if (betweenTime < 1) return "방금전";
-    if (betweenTime < 60) {
-      return `${betweenTime}분전`;
-    }
-
-    const betweenTimeHour = Math.floor(betweenTime / 60);
-    if (betweenTimeHour < 24) {
-      return `${betweenTimeHour}시간전`;
-    }
-
-    const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-    if (betweenTimeDay < 365) {
-      return `${betweenTimeDay}일전`;
-    }
-
-    return `${Math.floor(betweenTimeDay / 365)}년전`;
-  }
 
   useEffect(() => {
     localStorage.setItem("reply", JSON.stringify(comments));
@@ -96,7 +75,9 @@ const ReplyComment = ({ responseTo }) => {
                 <Avatar
                   sx={{ bgcolor: "orangered", width: "2rem", height: "2rem" }}
                 >
-                  {comment.writer.slice(0, 2)}
+                  {check_kor.test(comment.writer)
+                    ? comment.writer.slice(0, 1)
+                    : comment.writer.slice(0, 2)}
                 </Avatar>
                 <Item>{comment.writer}</Item>
                 <Item>{timeForToday(comment.created_at)}</Item>
