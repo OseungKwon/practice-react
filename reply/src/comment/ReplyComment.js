@@ -107,8 +107,11 @@ const ReplyComment = ({ responseTo, user }) => {
 
                 <Item>{timeForToday(comment.created_at)}</Item>
               </Stack>
-              {/* 작성 content */}
-              <Box key={index} sx={{ padding: "0px 20px" }}>
+              {/* comment 글 내용 */}
+              <Box
+                key={index}
+                sx={{ padding: "0px 20px", color: comment.exist || "grey" }}
+              >
                 <Markdown comment={comment} />
               </Box>
               {/* comment 수정 */}
