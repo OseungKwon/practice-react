@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import uuid from "react-uuid";
 
-import { addComment, editComment } from "../redux/comment";
+import { addComment, editComment, removeComment } from "../redux/comment";
 import ReplyComment from "./ReplyComment";
 // dot icon
 //import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
@@ -66,15 +66,20 @@ const Comment = ({ user }) => {
     dispatch(addComment(data));
   };
 
-  // 댓글 삭제
+  // Edit comment
   const onEdit = (commentId) => {
-    console.log(commentId);
+    // console.log(commentId);
     const editorInstance = editorRef.current.getInstance();
     const getContent = editorInstance.getMarkdown();
     console.log(getContent);
 
     let data = { commentId: commentId, content: getContent };
     dispatch(editComment(data));
+  };
+
+  // Remove comment
+  const onRemove = (commentId) => {
+    dispatch(removeComment(commentId));
   };
 
   useEffect(() => {
@@ -116,13 +121,16 @@ const Comment = ({ user }) => {
             <Item>{timeForToday(comment.created_at)}</Item>
           </Stack>
 
-          {/* 작성 content */}
-          <Box key={index} sx={{ padding: "0px 20px" }}>
+          {/* comment 글 내용 */}
+          <Box
+            key={index}
+            sx={{ padding: "0px 20px", color: comment.exist || "grey" }}
+          >
             <Markdown comment={comment} />
           </Box>
 
           {/* comment 수정 */}
-          {user === comment.writer && (
+          {comment.exist && user === comment.writer && (
             <>
               {openEditor === comment.commentId && (
                 <Editor initialValue={comment.content} ref={editorRef} />
@@ -138,6 +146,15 @@ const Comment = ({ user }) => {
                 }}
               >
                 수정
+              </Button>
+
+              {/* comment 삭제 */}
+              <Button
+                onClick={() => {
+                  onRemove(comment.commentId);
+                }}
+              >
+                삭제
               </Button>
             </>
           )}

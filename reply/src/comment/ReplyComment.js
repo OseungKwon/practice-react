@@ -5,7 +5,7 @@ import { styled } from "@mui/material/styles";
 import uuid from "react-uuid";
 
 import { useSelector, useDispatch } from "react-redux";
-import { addComment, editComment } from "../redux/comment";
+import { addComment, editComment, removeComment } from "../redux/comment";
 import Markdown from "../component/Markdown";
 import { Editor } from "@toast-ui/react-editor";
 
@@ -59,13 +59,18 @@ const ReplyComment = ({ responseTo, user }) => {
 
   // Edit comment
   const onEdit = (commentId) => {
-    console.log(commentId);
+    // console.log(commentId);
     const editorInstance = editorRef.current.getInstance();
     const getContent = editorInstance.getMarkdown();
     console.log(getContent);
 
     let data = { commentId: commentId, content: getContent };
     dispatch(editComment(data));
+  };
+
+  // Remove comment
+  const onRemove = (commentId) => {
+    dispatch(removeComment(commentId));
   };
 
   useEffect(() => {
@@ -123,6 +128,15 @@ const ReplyComment = ({ responseTo, user }) => {
                     }}
                   >
                     수정
+                  </Button>
+
+                  {/* comment 삭제 */}
+                  <Button
+                    onClick={() => {
+                      onRemove(comment.commentId);
+                    }}
+                  >
+                    삭제
                   </Button>
                 </>
               )}
