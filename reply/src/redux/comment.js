@@ -20,8 +20,15 @@ export const commentSlice = createSlice({
         created_at,
       });
     },
+    editComment(state, action) {
+      // action의 payload에는 삭제될 댓글의 아이디가 담겨있음
+      const { commentId, content } = action.payload;
+      state.map((item) =>
+        item.commentId === commentId ? (item.content = content) : item
+      );
+    },
   },
   // 수정 기능은 해당 댓글 검색해서 마크다운 가져온 뒤(content), toast 에디터에 initialValue로 넣어주기
 });
-export const { addComment } = commentSlice.actions;
+export const { addComment, editComment } = commentSlice.actions;
 export default commentSlice.reducer;

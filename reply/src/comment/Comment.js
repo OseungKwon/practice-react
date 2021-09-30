@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import uuid from "react-uuid";
 
-import { addComment } from "../redux/comment";
+import { addComment, editComment } from "../redux/comment";
 import ReplyComment from "./ReplyComment";
 // dot icon
 //import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
@@ -25,22 +25,24 @@ const Item = styled(Box)(({ theme }) => ({
   textAlign: "center",
   color: "#737373",
   fontSize: "1rem",
-  lineHeight: "1rem"
+  lineHeight: "1rem",
 }));
 
-const Comment = () => {
+const ProfileIcon = styled(Avatar)(() => ({
+  backgroundColor: "orangered",
+  width: "2rem",
+  height: "2rem",
+}));
+
+const Comment = ({ user }) => {
   const [local, setLocal] = useState([]);
   const dispatch = useDispatch();
   const comments = useSelector((state) => state.comment);
   const [display, setDisplay] = useState(false);
   const editorRef = useRef();
 
-  // mock user
-  const [user, setUser] = useState("jamong");
-
-  const changeUser = (e) => {
-    setUser(e.target.value);
-  };
+  // open editor to edit comment
+  const [openEditor, setOpenEditor] = useState("");
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -59,9 +61,20 @@ const Comment = () => {
       postId: "123123",
       responseTo: "root",
       commentId: uuid(),
-      created_at: `${date}`
+      created_at: `${date}`,
     };
     dispatch(addComment(data));
+  };
+
+  // 댓글 삭제
+  const onEdit = (commentId) => {
+    console.log(commentId);
+    const editorInstance = editorRef.current.getInstance();
+    const getContent = editorInstance.getMarkdown();
+    console.log(getContent);
+
+    let data = { commentId: commentId, content: getContent };
+    dispatch(editComment(data));
   };
 
   useEffect(() => {
@@ -71,24 +84,6 @@ const Comment = () => {
 
   return (
     <Paper sx={{ m: 15, p: 3 }}>
-      {/* mock user selector */}
-      <div>{user}</div>
-      <div>
-        <Button onClick={changeUser} value="jamong">
-          jamong
-        </Button>
-        <Button onClick={changeUser} value="자몽">
-          자몽
-        </Button>
-        <Button onClick={changeUser} value="유저1">
-          유저1
-        </Button>
-        <Button onClick={changeUser} value="유저2222222">
-          유저2222222
-        </Button>
-      </div>
-      {/* mock user selector end */}
-
       <Button
         onClick={() => {
           setDisplay(!display);
@@ -111,13 +106,11 @@ const Comment = () => {
         <Box sx={{ m: 2 }} key={comment.commentId}>
           {/* writer 정보, 작성 시간 */}
           <Stack direction="row" spacing={2}>
-            <Avatar
-              sx={{ bgcolor: "orangered", width: "2rem", height: "2rem" }}
-            >
+            <ProfileIcon>
               {check_kor.test(comment.writer)
                 ? comment.writer.slice(0, 1)
                 : comment.writer.slice(0, 2)}
-            </Avatar>
+            </ProfileIcon>
             <Item>{comment.writer}</Item>
 
             <Item>{timeForToday(comment.created_at)}</Item>
@@ -128,8 +121,29 @@ const Comment = () => {
             <Markdown comment={comment} />
           </Box>
 
+          {/* comment 수정 */}
+          {user === comment.writer && (
+            <>
+              {openEditor === comment.commentId && (
+                <Editor initialValue={comment.content} ref={editorRef} />
+              )}
+              <Button
+                onClick={() => {
+                  if (comment.commentId === openEditor) {
+                    onEdit(comment.commentId);
+                    setOpenEditor("");
+                  } else {
+                    setOpenEditor(comment.commentId);
+                  }
+                }}
+              >
+                수정
+              </Button>
+            </>
+          )}
+
           {/* 대댓글 컴포넌트 */}
-          <ReplyComment responseTo={comment.commentId} />
+          <ReplyComment responseTo={comment.commentId} user={user} />
 
           <Divider variant="middle" />
         </Box>
