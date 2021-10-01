@@ -27,7 +27,7 @@ const Markdown = ({ comment }) => {
                 {comment.content}
               </code>
             );
-          }
+          },
         }}
       />
     </div>
