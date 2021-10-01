@@ -7,8 +7,8 @@ import ReplyComment from "./ReplyComment";
 
 // dot icon
 //import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import { Stack, Button, Avatar, Divider, Paper } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { Stack, Button, Divider, Paper } from "@mui/material";
+
 import { Box } from "@mui/system";
 
 // markdown, toast editor
@@ -17,23 +17,12 @@ import { Editor } from "@toast-ui/react-editor";
 
 import Markdown from "../component/Markdown";
 
-import { check_kor, timeForToday } from "../component/CommentTool";
-
-const Item = styled(Box)(({ theme }) => ({
-  ...theme.typography.body2,
-  paddingTop: theme.spacing(1),
-  paddingBottom: theme.spacing(1),
-  textAlign: "center",
-  color: "#737373",
-  fontSize: "1rem",
-  lineHeight: "1rem",
-}));
-
-const ProfileIcon = styled(Avatar)(() => ({
-  backgroundColor: "orangered",
-  width: "2rem",
-  height: "2rem",
-}));
+import {
+  check_kor,
+  timeForToday,
+  Item,
+  ProfileIcon,
+} from "../component/CommentTool";
 
 const Comment = ({ user }) => {
   const [local, setLocal] = useState([]);

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Stack, Button, Avatar, Divider } from "@mui/material";
+import { Stack, Button, Divider } from "@mui/material";
 import { Box } from "@mui/system";
-import { styled } from "@mui/material/styles";
 import uuid from "react-uuid";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -9,23 +8,12 @@ import { addComment, editComment, removeComment } from "../redux/comment";
 import Markdown from "../component/Markdown";
 import { Editor } from "@toast-ui/react-editor";
 
-import { check_kor, timeForToday } from "../component/CommentTool";
-
-const Item = styled(Box)(({ theme }) => ({
-  ...theme.typography.body2,
-  paddingTop: theme.spacing(1),
-  paddingBottom: theme.spacing(1),
-  textAlign: "center",
-  color: "#737373",
-  fontSize: "1rem",
-  lineHeight: "1rem",
-}));
-
-const ProfileIcon = styled(Avatar)(() => ({
-  backgroundColor: "orangered",
-  width: "2rem",
-  height: "2rem",
-}));
+import {
+  check_kor,
+  timeForToday,
+  Item,
+  ProfileIcon,
+} from "../component/CommentTool";
 
 const ReplyComment = ({ responseTo, user }) => {
   const [local, setLocal] = useState([]);
