@@ -27,14 +27,14 @@ const ReplyComment = ({ responseTo, user }) => {
 
   // open editor to edit comment
   const [openEditor, setOpenEditor] = useState("");
+  const date = new Date(); // 작성 시간
 
   const onSubmit = (e) => {
     e.preventDefault();
     const editorInstance = editorRef.current.getInstance();
     const getContent = editorInstance.getMarkdown();
-    const date = new Date();
 
-    let data = {
+    const data = {
       content: getContent,
       writer: user,
       postId: "123123",
@@ -96,7 +96,7 @@ const ReplyComment = ({ responseTo, user }) => {
               {/* comment 글 내용 */}
               <Box
                 key={index}
-                sx={{ padding: "0px 20px", color: comment.exist || "grey" }}
+                sx={{ padding: "0px 20px", color: comment.exist ?? "grey" }}
               >
                 <Markdown comment={comment} />
               </Box>

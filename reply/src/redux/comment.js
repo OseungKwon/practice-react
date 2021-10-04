@@ -18,7 +18,7 @@ export const commentSlice = createSlice({
         responseTo,
         commentId,
         created_at,
-        exist: true, // 대댓글 있는 댓글 삭제 문제 때문에 임시로 넣어둠
+        exist: true // 대댓글 있는 댓글 삭제 문제 때문에 임시로 넣어둠
       });
     },
     editComment(state, action) {
@@ -42,8 +42,8 @@ export const commentSlice = createSlice({
           return state.filter((item) => item.commentId !== action.payload);
         }
       }
-    },
-  },
+    }
+  }
   // 수정 기능은 해당 댓글 검색해서 마크다운 가져온 뒤(content), toast 에디터에 initialValue로 넣어주기
 });
 export const { addComment, editComment, removeComment } = commentSlice.actions;

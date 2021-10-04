@@ -21,7 +21,7 @@ import {
   check_kor,
   timeForToday,
   Item,
-  ProfileIcon,
+  ProfileIcon
 } from "../component/CommentTool";
 
 const Comment = ({ user }) => {
@@ -30,6 +30,7 @@ const Comment = ({ user }) => {
   const comments = useSelector((state) => state.comment);
   const [display, setDisplay] = useState(false);
   const editorRef = useRef();
+  const date = new Date(); // 작성 시간
 
   // open editor to edit comment
   const [openEditor, setOpenEditor] = useState("");
@@ -41,17 +42,16 @@ const Comment = ({ user }) => {
     const editorInstance = editorRef.current.getInstance();
     const getContent = editorInstance.getMarkdown();
     setDisplay(!display);
-    const date = new Date();
 
     // 데이터 저장
     // setCommentValule(text);
-    let data = {
+    const data = {
       content: getContent,
       writer: user,
       postId: "123123",
       responseTo: "root",
       commentId: uuid(),
-      created_at: `${date}`,
+      created_at: `${date}`
     };
     dispatch(addComment(data));
   };
@@ -115,6 +115,7 @@ const Comment = ({ user }) => {
           <Box
             key={index}
             sx={{ padding: "0px 20px", color: comment.exist || "grey" }}
+            // exist는 초기값으로 true를 가지며, removeComment를 통해 false로 변경된다.
           >
             <Markdown comment={comment} />
           </Box>
