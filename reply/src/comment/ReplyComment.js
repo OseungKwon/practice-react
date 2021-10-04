@@ -12,7 +12,7 @@ import {
   check_kor,
   timeForToday,
   Item,
-  ProfileIcon,
+  ProfileIcon
 } from "../component/CommentTool";
 
 const ReplyComment = ({ responseTo, user }) => {
@@ -40,7 +40,7 @@ const ReplyComment = ({ responseTo, user }) => {
       postId: "123123",
       responseTo: responseTo,
       commentId: uuid(),
-      created_at: `${date}`,
+      created_at: `${date}`
     };
     dispatch(addComment(data));
   };
@@ -73,11 +73,9 @@ const ReplyComment = ({ responseTo, user }) => {
         }}
         sx={{ display: "flex", justifyContent: "flex-start", width: "10rem" }}
       >
-        {display
-          ? "댓글 숨기기"
-          : local.length === 0
-          ? "댓글 달기"
-          : `${local.length}개의 댓글 보기`}
+        {display && "댓글 숨기기"}
+        {!display &&
+          (local.length === 0 ? "댓글 달기" : `${local.length}개의 댓글 보기`)}
       </Button>
 
       {display && (
