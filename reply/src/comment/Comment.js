@@ -83,7 +83,7 @@ const Comment = ({ user }) => {
         onClick={() => {
           setDisplay(!display);
         }}
-        sx={{ width: "10rem" }}
+        sx={{ width: "5rem" }}
       >
         답변 달기
       </Button>
