@@ -21,7 +21,7 @@ import {
   check_kor,
   timeForToday,
   Item,
-  ProfileIcon
+  ProfileIcon,
 } from "../component/CommentTool";
 
 const Comment = ({ user }) => {
@@ -51,7 +51,7 @@ const Comment = ({ user }) => {
       postId: "123123",
       responseTo: "root",
       commentId: uuid(),
-      created_at: `${date}`
+      created_at: `${date}`,
     };
     dispatch(addComment(data));
   };
@@ -78,7 +78,7 @@ const Comment = ({ user }) => {
   }, [comments]);
 
   return (
-    <Paper sx={{ m: 15, p: 3 }}>
+    <Box>
       <Button
         onClick={() => {
           setDisplay(!display);
@@ -156,7 +156,7 @@ const Comment = ({ user }) => {
           <Divider variant="middle" />
         </Box>
       ))}
-    </Paper>
+    </Box>
   );
 };
 

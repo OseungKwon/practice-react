@@ -1,6 +1,7 @@
 import { Button } from "@mui/material";
 import React, { useState } from "react";
 import Comment from "./comment/Comment";
+import Qna from "./comment/Qna";
 
 // 수정할 사항
 /*
@@ -17,7 +18,7 @@ const App = () => {
   };
 
   return (
-    <div>
+    <div style={{ backgroundColor: "#F5F5F5" }}>
       {/* mock user selector */}
       <div>{user}</div>
       <div>
@@ -45,8 +46,7 @@ const App = () => {
         >
           데이터 삭제
         </Button>
-
-        <Comment user={user} />
+        <Qna user={user} />
       </div>
     </div>
   );
