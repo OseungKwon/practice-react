@@ -1,24 +1,63 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import axios from "axios";
+import AxiosMockAdapter from "axios-mock-adapter";
+import faker from "faker";
+
+import "antd/dist/antd.css";
+import { Card, Col, Row, Button } from "antd";
+
+const mock = new AxiosMockAdapter(axios);
+
+const posts = [...Array(23)].map((_, index) => {
+  const setIndex = index + 1;
+  return {
+    id: `postId-${setIndex}`,
+    title: faker.lorem.words(),
+    content: faker.lorem.lines(2),
+    image: `${faker.image.animals()}?random=${Math.round(Math.random() * 1000)}`
+  };
+});
+
+mock.onGet("/posts").reply(() => {
+  try {
+    const results = posts;
+    return [200, results];
+  } catch (error) {
+    console.error(error);
+    return [500, { message: "Internal server error" }];
+  }
+});
 
 function App() {
+  const [posts, setPosts] = useState([]);
+  //console.log(posts);
+
+  const onClickEvent = async (e) => {
+    const mockData = await axios.get("/posts");
+    setPosts(mockData.data);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Button onClick={onClickEvent} style={{ margin: "2rem" }}>
+        버튼
+      </Button>
+      <Row>
+        {posts?.map((post) => (
+          <Col key={post.id}>
+            <Card
+              title={post.title}
+              style={{
+                margin: "2rem",
+                width: "20rem"
+              }}
+            >
+              <p>{post.content}</p>
+              <img src={post.image} alt="img" style={{ width: "100%" }} />
+            </Card>
+          </Col>
+        ))}
+      </Row>
+    </>
   );
 }
 
