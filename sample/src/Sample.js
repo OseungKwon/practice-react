@@ -16,6 +16,16 @@ const posts = [...Array(23)].map((_, index) => {
   };
 });
 
+mock.onGet("/posts").reply(() => {
+  try {
+    const results = posts;
+    return [200, results];
+  } catch (error) {
+    console.error(error);
+    return [500, { message: "Internal server error" }];
+  }
+});
+
 const App = () => {
   return <div></div>;
 };
