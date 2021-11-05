@@ -38,6 +38,10 @@ function App() {
   };
   return (
     <>
+      <h1 style={{ margin: "0 0 20px 0" }}>Margin Collapse</h1>
+      <div style={{ marginTop: "40px" }}>
+        <p style={{ marginTop: "30px" }}>What do you think?</p>
+      </div>
       <Button onClick={onClickEvent} style={{ margin: "2rem" }}>
         버튼
       </Button>
