@@ -1,0 +1,27 @@
+{
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.6.1",
+    "react-redux": "^7.2.5",
+    "redux": "^4.1.1"
+  },
+  "name": "jest",
+  "version": "1.0.0",
+  "description": "jest",
+  "main": "index.js",
+  "devDependencies": {
+    "jest": "^27.5.0"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OseungKwon/practice-react.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OseungKwon/practice-react/issues"
+  },
+  "homepage": "https://github.com/OseungKwon/practice-react#readme"
+}
